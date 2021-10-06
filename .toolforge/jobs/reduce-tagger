@@ -1,0 +1,36 @@
+#!/bin/bash
+set -euo pipefail
+
+. "$HOME"/repo/.venv/bin/activate
+
+QUERY=$(cat <<EOF
+select
+  p.page_namespace,
+  p.page_title
+from
+  categorylinks cl
+  left join page p on cl.cl_from = p.page_id
+  left join image img on p.page_title = img.img_name
+where
+  cl.cl_to = 'All_non-free_media'
+  and p.page_namespace = 6
+  and img_width * img_height / 1000000 >= 0.105
+  and img_major_mime = 'image'
+  and not exists (
+    select
+      1
+    from
+      templatelinks tl
+    where
+      p.page_id = tl.tl_from
+      and tl.tl_namespace = 10
+      and tl.tl_title in (
+        'Non-free_no_reduce',
+        'Non-free_reduce',
+        'Non-free_manual_reduce'
+      )
+  )
+EOF
+)
+
+nfcbot reduce-tagger --always -log:reduce-tagger.log -mysqlquery:"$QUERY"

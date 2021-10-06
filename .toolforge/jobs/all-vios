@@ -1,0 +1,14 @@
+#!/bin/bash
+# shellcheck disable=SC2086
+set -euo pipefail
+
+. "$HOME"/repo/.venv/bin/activate
+
+COMMON="-dir:.pywikibot-all -log:all-vios.log"
+PAGE="User:JJMC89_bot/report/NFCC_violations"
+
+nfcbot list-vios $COMMON -cat:All_non-free_media $PAGE
+
+nfcbot nfur-fixer $COMMON -ns:6 -links:$PAGE --always
+
+nfcbot remove-vios $COMMON -ns:not:6 -links:$PAGE --always

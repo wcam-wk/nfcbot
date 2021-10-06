@@ -1,0 +1,24 @@
+- name: all-vios
+  command: $HOME/repo/.toolforge/jobs/all-vios
+  emails: onfailure
+  image: tf-python39
+  no-filelog: true
+  schedule: '16 1 1,16 * *'
+- name: orphan-revs-tagger
+  command: $HOME/repo/.toolforge/jobs/orphan-revs-tagger
+  emails: onfailure
+  image: tf-python39
+  no-filelog: true
+  schedule: '3 3 * * *'
+- name: recent-vios
+  command: $HOME/repo/.toolforge/jobs/recent-vios
+  emails: onfailure
+  image: tf-python39
+  no-filelog: true
+  schedule: '37 */4 * * *'
+- name: reduce-tagger
+  command: $HOME/repo/.toolforge/jobs/reduce-tagger
+  emails: onfailure
+  image: tf-python39
+  no-filelog: true
+  schedule: '22 19 * * *'

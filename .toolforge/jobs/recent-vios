@@ -1,0 +1,32 @@
+#!/bin/bash
+set -euo pipefail
+
+. "$HOME"/repo/.venv/bin/activate
+
+COMMON="-log:recent-vios.log"
+PAGE="User:JJMC89_bot/report/NFCC_violations/recent"
+QUERY=$(cat <<EOF
+select distinct
+  p1.page_namespace,
+  p1.page_title
+from
+  categorylinks cl
+  left join page p1 on cl.cl_from = p1.page_id
+  left join imagelinks il on p1.page_title = il.il_to
+  left join page p2 on il.il_from = p2.page_id
+  left join recentchanges rc on rc.rc_title = p2.page_title and rc.rc_namespace = p2.page_namespace
+where
+  cl.cl_to = 'All_non-free_media'
+  and cl.cl_type = 'file'
+  and p1.page_namespace = 6
+  and rc.rc_bot = 0
+  and rc.rc_type in (0, 1)
+  and $(date -ud '-5 hours' +'%Y%m%d%H%M%S') <= rc.rc_timestamp;
+EOF
+)
+
+nfcbot list-vios $COMMON -mysqlquery:"$QUERY" $PAGE
+
+nfcbot nfur-fixer $COMMON -ns:6 -links:$PAGE --always
+
+nfcbot remove-vios $COMMON -ns:not:6 -links:$PAGE --always

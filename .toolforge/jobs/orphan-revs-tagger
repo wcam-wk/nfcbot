@@ -1,0 +1,36 @@
+#!/bin/bash
+set -euo pipefail
+
+. "$HOME"/repo/.venv/bin/activate
+
+QUERY=$(cat <<EOF
+select distinct
+  p.page_namespace,
+  p.page_title
+from
+  oldimage oi
+  left join page p on oi.oi_name = p.page_title
+  inner join categorylinks cl on p.page_id = cl.cl_from
+where
+  oi_deleted = 0
+  and p.page_namespace = 6
+  and cl.cl_to = 'All_non-free_media'
+  and not exists (
+    select
+      1
+    from
+      templatelinks tl
+    where
+      tl.tl_from = p.page_id
+      and tl.tl_from_namespace = 6
+      and tl.tl_namespace = 10
+      and tl.tl_title = 'Orphaned_non-free_revisions'
+  )
+EOF
+)
+
+nfcbot orphan-tagger revision \
+    --always \
+    --summary 'Request revision deletion of orphaned revision(s) per [[WP:NFCC#7]]' \
+    -log:orphan-revs-tagger.log \
+    -mysqlquery:"$QUERY"
