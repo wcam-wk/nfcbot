@@ -55,8 +55,6 @@ classifiers = [
     "License :: OSI Approved :: MIT License",
     "Natural Language :: English",
     "Operating System :: OS Independent",
-    "Programming Language :: Python :: 3.7",
-    "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: Implementation :: CPython",
@@ -72,10 +70,10 @@ packages = [
 ]
 readme = "README.md"
 repository = "https://github.com/jjmc89-bot/nfcbot"
-version = "0.1.0"
+version = "0.2.0"
 
 [tool.poetry.dependencies]
-python = "^3.7"
+python = "^3.9"
 mwparserfromhell = "0.6.3"
 pywikibot = {version = "6.6.1", extras = ["mwoauth", "mysql"]}
 pywikibot-extensions = "21.9.26"
