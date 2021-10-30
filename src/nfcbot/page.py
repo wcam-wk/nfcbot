@@ -142,6 +142,7 @@ class NonFreeFilePage(pywikibot_extensions.page.FilePage, Page):
         for wikilink in wikicode.ifilter_wikilinks():
             with suppress(ValueError):
                 links.add(Page.from_wikilink(wikilink, self.site))
+                wikicode.remove(wikilink)
         self._10c_articles = self._get_articles(links)
         self._10c_wikitext = str(wikicode)
         return self._10c_articles, self._10c_wikitext
