@@ -133,6 +133,11 @@ class NonFreeFilePage(pywikibot_extensions.page.FilePage, Page):
                 for param in reversed(tpl.params):
                     if param.name.matches("Article"):
                         value = param.value.strip()
+                        if "{" in value:
+                            value = self.site.expand_text(
+                                text=value,
+                                title=self.title(),
+                            )
                         with suppress(ValueError):
                             links.add(Page.from_wikilink(value, self.site))
                         break
