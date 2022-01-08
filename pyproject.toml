@@ -29,6 +29,7 @@ use_parentheses = true
 
 
 [tool.mypy]
+python_version = 3.9
 check_untyped_defs = true
 disallow_any_generics = true
 disallow_incomplete_defs = true
