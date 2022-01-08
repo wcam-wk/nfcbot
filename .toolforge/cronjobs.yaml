@@ -3,7 +3,13 @@
   emails: onfailure
   image: tf-python39
   no-filelog: true
-  schedule: '16 1 1,16 * *'
+  schedule: '28 14 14/14 * *'
+- name: build-cache
+  command: $HOME/repo/.toolforge/jobs/build-cache
+  emails: onfailure
+  image: tf-python39
+  no-filelog: true
+  schedule: '22 10 7/7 * *'
 - name: orphan-revs-tagger
   command: $HOME/repo/.toolforge/jobs/orphan-revs-tagger
   emails: onfailure

@@ -93,7 +93,7 @@ jobs = 0  # default: 1
 
 [tool.pylint.basic]
 # Good variable names which should always be accepted
-good-names = "e,i,j,k,_"  # default: i,j,k,ex,Run,_
+good-names = "e,f,i,j,k,v,_"  # default: i,j,k,ex,Run,_
 
 [tool.pylint.format]
 max-line-length = 79  # default: 100

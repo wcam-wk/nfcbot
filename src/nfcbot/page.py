@@ -17,6 +17,7 @@ from pywikibot.textlib import removeDisabledParts
 from pywikibot_extensions.page import get_redirects
 
 import nfcbot
+from nfcbot.cache import get_cache
 
 
 @dataclass(frozen=True)
@@ -112,24 +113,21 @@ class NonFreeFilePage(pywikibot_extensions.page.FilePage, Page):
         if self._10c_articles or self._10c_wikitext:
             return self._10c_articles, self._10c_wikitext
         pywikibot.log(f"Parsing {self!r}")
-        if not hasattr(self.site, "nfur_tpl"):
-            # file_tpl_cat = pywikibot.Category(
-            #     self.site, "File namespace templates"
-            # )
-            # file_tpl = file_tpl_cat.articles(recurse=True, namespaces=10)
-            # self.site.file_tpl = get_redirects(frozenset(file_tpl))
-            nfur_tpl_cat = pywikibot.Category(self.site, nfcbot.NFUR_TPL_CAT)
-            nfur_tpl = nfur_tpl_cat.articles(recurse=True, namespaces=10)
-            self.site.nfur_tpl = get_redirects(frozenset(nfur_tpl))
+        site = self.site
+        if not hasattr(site, "nfur_tpl"):
+            cache = get_cache(site)
+            site.file_tpl = {Page(site, t) for t in cache[nfcbot.FILE_TPL_CAT]}
+            site.nfur_tpl = {Page(site, t) for t in cache[nfcbot.NFUR_TPL_CAT]}
+            site.file_tpl |= site.nfur_tpl
         links = set()
-        text = removeDisabledParts(self.text, site=self.site)
+        text = removeDisabledParts(self.text, site=site)
         wikicode = mwparserfromhell.parse(text, skip_style_tags=True)
         for tpl in wikicode.ifilter_templates():
             try:
-                template = Page.from_wikilink(tpl.name.strip(), self.site, 10)
+                template = Page.from_wikilink(tpl.name.strip(), site, 10)
             except ValueError:
                 continue
-            if template in self.site.nfur_tpl:
+            if template in site.nfur_tpl:
                 for param in reversed(tpl.params):
                     if param.name.matches("Article"):
                         value = param.value.strip()
@@ -139,14 +137,13 @@ class NonFreeFilePage(pywikibot_extensions.page.FilePage, Page):
                                 title=self.title(),
                             )
                         with suppress(ValueError):
-                            links.add(Page.from_wikilink(value, self.site))
+                            links.add(Page.from_wikilink(value, site))
                         break
+            if wikicode.contains(tpl) and template in site.file_tpl:
                 wikicode.remove(tpl)
-            # elif template in self.site.file_tpl:
-            #     wikicode.remove(tpl)
         for wikilink in wikicode.ifilter_wikilinks():
             with suppress(ValueError):
-                links.add(Page.from_wikilink(wikilink, self.site))
+                links.add(Page.from_wikilink(wikilink.title, site))
                 wikicode.remove(wikilink)
         self._10c_articles = self._get_articles(links)
         self._10c_wikitext = str(wikicode)

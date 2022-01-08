@@ -16,6 +16,7 @@ from nfcbot.bot import (
     OrphanTaggerBot,
     ReduceTaggerBot,
 )
+from nfcbot.cache import build_cache, clear_cache
 from nfcbot.page import NonFreeFilePage, Page
 
 
@@ -145,6 +146,14 @@ def parse_script_args(*args: str) -> argparse.Namespace:
         help=description,
         allow_abbrev=False,
     )
+    description = "build or clear the cache"
+    cache_subparser = subparsers.add_parser(
+        "cache",
+        description=description,
+        help=description,
+        allow_abbrev=False,
+    )
+    cache_subparser.add_argument("cache_action", choices=("build", "clear"))
     return parser.parse_args(args=args)
 
 
@@ -156,6 +165,14 @@ def cli(*args: str) -> int:
     script_args = gen_factory.handle_args(local_args)
     parsed_args = parse_script_args(*script_args)
     site.login()
+    if parsed_args.action == "cache":
+        if parsed_args.cache_action == "build":
+            build_cache(site)
+        elif parsed_args.cache_action == "clear":
+            clear_cache()
+        else:
+            raise ValueError("Unknown cache action.")
+        return 0
     if not gen_factory.gens:
         pywikibot.error(
             "Unable to execute because no generator was defined. "
