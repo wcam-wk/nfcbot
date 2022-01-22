@@ -30,6 +30,7 @@ class NfcBot(SingleSiteBot, ExistingPageBot):
         """Initialize."""
         super().__init__(**kwargs)
         self.log_list: list[object] = []
+        self.start_time = self.site.server_time()
 
     def init_page(self, item: object) -> NonFreeFilePage | Page:
         """Re-class the page."""
@@ -70,6 +71,7 @@ class NfcBot(SingleSiteBot, ExistingPageBot):
         self, new_text: str, **kwargs: Any
     ) -> bool:
         """Save the current page with the specified text."""
+        kwargs.setdefault("asynchronous", False)
         kwargs.setdefault("callback", self.log_issue)
         kwargs.setdefault("minor", self.current_page.namespace() == 3)
         kwargs.setdefault("nocreate", True)
@@ -88,11 +90,19 @@ class NfcBot(SingleSiteBot, ExistingPageBot):
         if not self.log_list:
             return
         pywikibot.output(self.log_list)
-        text = iterable_to_wikitext(self.log_list)
-        Page(
+        page = Page(
             self.site,
             f"User:{self.site.username()}/log/{self.__class__.__name__}",
-        ).save_bot_start_end(text, summary="Updating log", force=True)
+        )
+        if not page.exists():
+            return
+        page.save(
+            text=f"{iterable_to_wikitext(self.log_list)}\n\n~~~~~",
+            summary=str(self.start_time),
+            botflag=False,
+            force=True,
+            section="new",
+        )
 
     def treat_page(self) -> None:
         """Process one page (abstract method)."""

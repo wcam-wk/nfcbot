@@ -1,4 +1,7 @@
 """Initialize."""
+from __future__ import annotations
+
+
 FILE_TPL_CAT = "File namespace templates"
 NFUR_TPL_CAT = "Non-free use rationale templates"
 NONFREE_FILE_CAT = "All non-free media"
