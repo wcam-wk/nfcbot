@@ -5,6 +5,7 @@ This module extends pywikibot.bot.
 """
 from __future__ import annotations
 
+import html
 import re
 from contextlib import suppress
 from typing import Any, Iterable
@@ -48,9 +49,11 @@ class NfcBot(SingleSiteBot, ExistingPageBot):
         :param issue: Issue encountered
         """
         if issue:
-            text = f"{page.title(as_link=True, textlink=True)}: {issue}"
-            pywikibot.log(text)
-            self.log_list.append(text.replace("\n", "<br />"))
+            pywikibot.log(f"{page!r}: {issue!r}")
+            self.log_list.append(
+                f"{page.title(as_link=True, textlink=True)}: "
+                f"<code>{html.escape(str(issue))}</code>"
+            )
 
     def check_disabled(self) -> None:
         """Check if the task is disabled. If so, quit."""
@@ -89,7 +92,6 @@ class NfcBot(SingleSiteBot, ExistingPageBot):
         """Log issues."""
         if not self.log_list:
             return
-        pywikibot.output(self.log_list)
         page = Page(
             self.site,
             f"User:{self.site.username()}/log/{self.__class__.__name__}",
@@ -97,7 +99,7 @@ class NfcBot(SingleSiteBot, ExistingPageBot):
         if not page.exists():
             return
         page.save(
-            text=f"{iterable_to_wikitext(self.log_list)}\n\n~~~~~",
+            text=f"{iterable_to_wikitext(self.log_list).strip()}\n\n~~~~",
             summary=str(self.start_time),
             botflag=False,
             force=True,
