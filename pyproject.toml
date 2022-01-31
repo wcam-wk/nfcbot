@@ -68,7 +68,7 @@ version = "0.2.0"
 [tool.poetry.dependencies]
 python = "^3.9"
 mwparserfromhell = "0.6.3"
-pywikibot = {version = "6.6.3", extras = ["mwoauth", "mysql"]}
+pywikibot = {version = "6.6.4", extras = ["mwoauth", "mysql"]}
 pywikibot-extensions = "22.1.9"
 
 [tool.poetry.dev-dependencies]
