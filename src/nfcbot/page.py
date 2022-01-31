@@ -55,14 +55,14 @@ class Page(pywikibot_extensions.page.Page):
             # The first letter is not case sensative.
             char1 = f"[{char1}{char1.swapcase()}]"
             title = char1 + title[1:]
-        return fr"(?:{title})"
+        return rf"(?:{title})"
 
     @property
     def article_titles_regex(self) -> str:
         """Return a regex to match article titles, including redirects."""
         redirects = get_redirects(frozenset([self]), namespaces=0)
         titles = [Page(r).article_title_regex for r in redirects]
-        return fr"(?:{'|'.join(titles)})"
+        return rf"(?:{'|'.join(titles)})"
 
 
 class NonFreeFilePage(pywikibot_extensions.page.FilePage, Page):

@@ -179,7 +179,7 @@ class NfurFixerBot(NfcBot):
         :param vios: List of violations
         """
         dab_regex = re.compile(
-            fr"""
+            rf"""
             \s*
             (?:
                 {article.article_titles_regex}(?:\ \(.+\)|, [^,]+)
