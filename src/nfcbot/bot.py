@@ -19,6 +19,7 @@ from pywikibot_extensions.page import FilePage, get_redirects
 from pywikibot_extensions.textlib import FILE_LINK_REGEX, iterable_to_wikitext
 
 import nfcbot
+from nfcbot.cache import get_cache
 from nfcbot.page import NfccViolation, NonFreeFilePage, Page
 
 
@@ -50,9 +51,11 @@ class NfcBot(SingleSiteBot, ExistingPageBot):
         """
         if issue:
             pywikibot.log(f"{page!r}: {issue!r}")
+            issue_s = html.escape(str(issue))
+            issue_s = issue_s.replace("\n", r"\n")
             self.log_list.append(
                 f"{page.title(as_link=True, textlink=True)}: "
-                f"<code>{html.escape(str(issue))}</code>"
+                f"<code>{issue_s}</code>"
             )
 
     def check_disabled(self) -> None:
@@ -123,10 +126,10 @@ class NfurFixerBot(NfcBot):
     def __init__(self, **kwargs: Any) -> None:
         """Initialize."""
         super().__init__(**kwargs)
-        nfur_category = pywikibot.Category(self.site, nfcbot.NFUR_TPL_CAT)
-        self.nfur_templates = get_redirects(
-            frozenset(nfur_category.articles(recurse=True, namespaces=10))
-        )
+        cache = get_cache(self.site)
+        self.nfur_templates = {
+            Page(self.site, t) for t in cache[nfcbot.NFUR_TPL_CAT]
+        }
 
     def skip_page(self, page: Page) -> bool:
         """Sikp the page if it is not a non-free file."""
