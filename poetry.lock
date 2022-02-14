@@ -234,7 +234,7 @@ rsa = ["cryptography"]
 
 [[package]]
 name = "pywikibot"
-version = "6.6.4"
+version = "6.6.5"
 description = "Python MediaWiki Bot Framework"
 category = "main"
 optional = false
@@ -382,7 +382,7 @@ python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,>=2.7"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "b0c43c28c05e2e4daa5e9d1d5799ce1a396d6f22718dd0e04e4bde2be398b262"
+content-hash = "096de6ab9eb00f8bc72d519a0903dec28c61eeb108a1c1c976374de8e48e3ed5"
 
 [metadata.files]
 astroid = [
@@ -527,7 +527,7 @@ pymysql = [
     {file = "PyMySQL-1.0.2.tar.gz", hash = "sha256:816927a350f38d56072aeca5dfb10221fe1dc653745853d30a216637f5d7ad36"},
 ]
 pywikibot = [
-    {file = "pywikibot-6.6.4.tar.gz", hash = "sha256:5d5375d382a2064213a25cbdde97b8258ef2ac963d310422099e1be480e079e5"},
+    {file = "pywikibot-6.6.5.tar.gz", hash = "sha256:72c2fc4615de0b7b0a158ac5407317ed3dd9d1250d371281cc18672e9d0f384d"},
 ]
 pywikibot-extensions = [
     {file = "pywikibot-extensions-22.1.9.tar.gz", hash = "sha256:dbbed674579bd15cd07268a97a27c87e9d7dc2a5d13ad52cc6d571050fb64912"},
