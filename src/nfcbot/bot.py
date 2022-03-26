@@ -292,8 +292,8 @@ class OrphanTaggerBot(NfcBot):
         if not isinstance(page, NonFreeFilePage):
             pywikibot.error(f"{page!r} is not a non-free file.")
             return True
-        if (self.opt.mode == "file" and page.is_used) or (
-            self.opt.mode == "revision" and not page.is_used
+        if (self.opt.mode == "file" and page.file_is_used) or (
+            self.opt.mode == "revision" and not page.file_is_used
         ):
             return True
         vios = page.nfcc_file_violations

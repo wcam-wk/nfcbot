@@ -88,7 +88,7 @@ class NonFreeFilePage(pywikibot_extensions.page.FilePage, Page):
         """Return NFCC file violations."""
         if self._nfcc_file_violations:
             return self._nfcc_file_violations
-        if self.is_used:
+        if self.file_is_used:
             visible_file_revs = 0
             for file_rev in self.get_file_history().values():
                 if not hasattr(file_rev, "filehidden"):
