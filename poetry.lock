@@ -216,7 +216,7 @@ test = ["pytest (>=4.0.1,<5.0.0)", "pytest-cov (>=2.6.0,<3.0.0)", "pytest-runner
 
 [[package]]
 name = "pylint"
-version = "2.13.7"
+version = "2.13.8"
 description = "python code static checker"
 category = "dev"
 optional = false
@@ -405,7 +405,7 @@ python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,>=2.7"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "32f2a50d7da195a4e64d23326e803815c51dd718212521cc4b313bc6b448428e"
+content-hash = "e8748e05b8c948cdde2869ee366cc5be4d10e1c055e3067927c1a78bdfa6324f"
 
 [metadata.files]
 astroid = [
@@ -551,8 +551,8 @@ pyjwt = [
     {file = "PyJWT-1.7.1.tar.gz", hash = "sha256:8d59a976fb773f3e6a39c85636357c4f0e242707394cadadd9814f5cbaa20e96"},
 ]
 pylint = [
-    {file = "pylint-2.13.7-py3-none-any.whl", hash = "sha256:13ddbbd8872c804574149e81197c28877eba75224ba6b76cd8652fc31df55c1c"},
-    {file = "pylint-2.13.7.tar.gz", hash = "sha256:911d3a97c808f7554643bcc5416028cfdc42eae34ed129b150741888c688d5d5"},
+    {file = "pylint-2.13.8-py3-none-any.whl", hash = "sha256:f87e863a0b08f64b5230e7e779bcb75276346995737b2c0dc2793070487b1ff6"},
+    {file = "pylint-2.13.8.tar.gz", hash = "sha256:ced8968c3b699df0615e2a709554dec3ddac2f5cd06efadb69554a69eeca364a"},
 ]
 pymysql = [
     {file = "PyMySQL-1.0.2-py3-none-any.whl", hash = "sha256:41fc3a0c5013d5f039639442321185532e3e2c8924687abe6537de157d403641"},
