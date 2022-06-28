@@ -172,7 +172,7 @@ class NonFreeFilePage(pywikibot_extensions.page.FilePage, Page):
         """Return NFCC usage violations."""
         if self._nfcc_usage_violations:
             return self._nfcc_usage_violations
-        for page in self.usingPages():
+        for page in self.using_pages():
             if page.is_article:
                 article_links, text = self._10c_parse()
                 if not (page in article_links or page.title() in text):

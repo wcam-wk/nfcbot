@@ -250,7 +250,7 @@ class NfurFixerBot(NfcBot):
         vios = [vio for vio in vios if vio.criterion == "10c"]
         if not vios:
             return
-        usage = set(self.current_page.usingPages())
+        usage = set(self.current_page.using_pages())
         wikicode = mwparserfromhell.parse(
             self.current_page.text, skip_style_tags=True
         )
