@@ -3,7 +3,7 @@ from __future__ import annotations
 
 import argparse
 import re
-from typing import Iterable
+from collections.abc import Iterable
 
 import pywikibot
 from pywikibot.bot import _GLOBAL_HELP

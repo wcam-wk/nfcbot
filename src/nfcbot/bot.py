@@ -7,8 +7,9 @@ from __future__ import annotations
 
 import html
 import re
+from collections.abc import Iterable
 from contextlib import suppress
-from typing import Any, Iterable
+from typing import Any
 
 import mwparserfromhell
 import pywikibot
