@@ -44,7 +44,7 @@ def output_violations(
         try:
             file_page = NonFreeFilePage(file_page)
         except ValueError:
-            pywikibot.exception(tb=True)
+            pywikibot.exception()
             continue
         vios = file_page.nfcc_usage_violations
         if not vios:
