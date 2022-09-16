@@ -20,11 +20,12 @@ where
       1
     from
       templatelinks tl
+      left join linktarget lt on tl.tl_target_id = lt.lt_id
     where
       tl.tl_from = p.page_id
       and tl.tl_from_namespace = 6
-      and tl.tl_namespace = 10
-      and tl.tl_title = 'Orphaned_non-free_revisions'
+      and lt.lt_namespace = 10
+      and lt.lt_title = 'Orphaned_non-free_revisions'
   )
 EOF
 )

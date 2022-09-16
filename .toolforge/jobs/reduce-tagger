@@ -21,10 +21,12 @@ where
       1
     from
       templatelinks tl
+      left join linktarget lt on tl.tl_target_id = lt.lt_id
     where
       p.page_id = tl.tl_from
-      and tl.tl_namespace = 10
-      and tl.tl_title in (
+      and tl.tl_from_namespace = 6
+      and lt.lt_namespace = 10
+      and lt.lt_title in (
         'Non-free_no_reduce',
         'Non-free_reduce',
         'Non-free_manual_reduce'
