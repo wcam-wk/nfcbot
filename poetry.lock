@@ -258,7 +258,7 @@ rsa = ["cryptography"]
 
 [[package]]
 name = "pywikibot"
-version = "7.6.0"
+version = "7.7.0"
 description = "Python MediaWiki Bot Framework"
 category = "main"
 optional = false
@@ -275,8 +275,9 @@ setuptools = [
 
 [package.extras]
 "commons_information.py" = ["mwparserfromhell (>=0.5.0)"]
+"create_isbn_edition.py" = ["isbnlib", "unidecode"]
 eventstreams = ["sseclient (>=0.0.18,<0.0.23)"]
-flake8 = ["darglint", "flake8 (==3.9.2)", "flake8 (>=5.0.0)", "flake8-bugbear (!=21.4.1,!=21.11.28)", "flake8-coding", "flake8-comprehensions (>=2.2.0)", "flake8-comprehensions (>=3.1.4)", "flake8-docstrings (>=1.3.1)", "flake8-no-u-prefixed-strings (>=0.2)", "flake8-print (>=2.0.1)", "flake8-quotes (>=2.0.1)", "flake8-string-format", "flake8-tuple (>=0.2.8)", "pep8-naming (>=0.12.1)", "pep8-naming (>=0.12.1,<0.13.0)", "pydocstyle (>=4.0.0)", "verve-flake8-mock (>=0.4)"]
+flake8 = ["darglint", "flake8 (==3.9.2)", "flake8 (>=5.0.2)", "flake8-bugbear (!=21.4.1,!=21.11.28)", "flake8-coding", "flake8-comprehensions (>=2.2.0)", "flake8-comprehensions (>=3.1.4)", "flake8-docstrings (>=1.3.1)", "flake8-no-u-prefixed-strings (>=0.2)", "flake8-print (>=2.0.1)", "flake8-quotes (>=2.0.1)", "flake8-string-format", "flake8-tuple (>=0.2.8)", "pep8-naming (>=0.12.1)", "pep8-naming (>=0.12.1,<0.13.0)", "pydocstyle (>=4.0.0)", "verve-flake8-mock (>=0.4)"]
 google = ["google (>=1.7)"]
 graphviz = ["pydot (>=1.2)"]
 hacking = ["hacking"]
@@ -288,7 +289,7 @@ mwoauth = ["mwoauth (>=0.2.4,!=0.3.1)"]
 mwparserfromhell = ["mwparserfromhell (>=0.5.0)"]
 mysql = ["PyMySQL (>=0.7.11,<1.0.0)", "PyMySQL (>=1.0.0)"]
 "patrol.py" = ["mwparserfromhell (>=0.5.0)"]
-scripts = ["memento-client (==0.6.1)", "mwparserfromhell (>=0.5.0)"]
+scripts = ["isbnlib", "memento-client (==0.6.1)", "mwparserfromhell (>=0.5.0)", "unidecode"]
 tkinter = ["Pillow (>=8.1.1)"]
 "weblinkchecker.py" = ["memento-client (==0.6.1)"]
 wikitextparser = ["wikitextparser (>=0.47.0)", "wikitextparser (>=0.47.5)"]
@@ -439,7 +440,7 @@ python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,>=2.7"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "e75c9f3b831578d619276cb6e16bc61cb6067cece20ba5c66c38ccfc054aac0d"
+content-hash = "4a306be3e472cf8bdc08f76f83861c3ee32ffc7d96deb656c775930bec59abbf"
 
 [metadata.files]
 astroid = [
@@ -592,8 +593,8 @@ pymysql = [
     {file = "PyMySQL-1.0.2.tar.gz", hash = "sha256:816927a350f38d56072aeca5dfb10221fe1dc653745853d30a216637f5d7ad36"},
 ]
 pywikibot = [
-    {file = "pywikibot-7.6.0-py3-none-any.whl", hash = "sha256:629b11b2e6468324aa32c4017fc503d2b36bc1779169f9e5dd831d4e3543305c"},
-    {file = "pywikibot-7.6.0.tar.gz", hash = "sha256:5e7fbe89e530a65b47be25368fd4b8ccbcf1ac31b9e21b48b24e45808ed6b185"},
+    {file = "pywikibot-7.7.0-py3-none-any.whl", hash = "sha256:70e3fd679f4a087e01e10a1aa79941a41b84062c08714714602195f4381c1592"},
+    {file = "pywikibot-7.7.0.tar.gz", hash = "sha256:db4f889dd9d031477c39cf830b12c56ce3f8fda516361cf0adcaa2ed090c9310"},
 ]
 pywikibot-extensions = [
     {file = "pywikibot-extensions-22.6.28.tar.gz", hash = "sha256:f8127c72a6e5518ba1c93bcbb76c56d8e8df77b5daf1b7b6fa7292d5feb115f0"},
