@@ -1,7 +1,7 @@
 - &defaults
   name: dummy-defaults-job
   command: echo this is a dummy job to set defaults
-  emails: on-failure
+  emails: onfailure
   image: tf-python39
   no-filelog: true
 - name: all-vios
