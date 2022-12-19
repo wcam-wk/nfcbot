@@ -49,7 +49,7 @@ repos:
     hooks:
       - id: autoflake
   - repo: https://github.com/PyCQA/isort
-    rev: 5.10.1
+    rev: v5.11.3
     hooks:
       - id: isort
   - repo: https://github.com/asottile/yesqa
@@ -97,6 +97,6 @@ repos:
     hooks:
       - id: beautysh
   - repo: https://github.com/shellcheck-py/shellcheck-py
-    rev: v0.8.0.4
+    rev: v0.9.0.2
     hooks:
       - id: shellcheck
