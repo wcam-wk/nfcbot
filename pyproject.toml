@@ -74,7 +74,7 @@ pywikibot = {version = "7.7.1", extras = ["mwoauth", "mysql"]}
 pywikibot-extensions = "22.11.12"
 
 [tool.poetry.dev-dependencies]
-pre-commit = "2.20.0"
+pre-commit = "2.21.0"
 pylint = "2.15.9"
 
 [tool.poetry.scripts]
