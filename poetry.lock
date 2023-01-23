@@ -435,18 +435,18 @@ wikitextparser = ["wikitextparser (>=0.47.0)", "wikitextparser (>=0.47.5)"]
 
 [[package]]
 name = "pywikibot-extensions"
-version = "22.11.12"
+version = "23.1.21"
 description = "Extends the Pywikibot library"
 category = "main"
 optional = false
 python-versions = ">=3.7,<4.0"
 files = [
-    {file = "pywikibot_extensions-22.11.12-py3-none-any.whl", hash = "sha256:182104ae71b02b293836145b2d7742cc6d81ffbfeac8e25e54bef8ae6e7f7e50"},
-    {file = "pywikibot_extensions-22.11.12.tar.gz", hash = "sha256:759e6043f5a5ee09b50ebee761b492a98b277316caa7983f54fc8be57a9537c2"},
+    {file = "pywikibot_extensions-23.1.21-py3-none-any.whl", hash = "sha256:c9a6b227d0f9c2578588542f38cc6e9dd75f6d7a6212e510d96c82048feb9386"},
+    {file = "pywikibot_extensions-23.1.21.tar.gz", hash = "sha256:7cea7429886ce58383cb8da9e853c395a286d8ce6e12ec9212c9285ccbbaa284"},
 ]
 
 [package.dependencies]
-pywikibot = ">=7.4.0,<8.0.0"
+pywikibot = ">=7.4.0"
 
 [[package]]
 name = "pyyaml"
@@ -719,4 +719,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9"
-content-hash = "bb2c48feddb58247bdc4206de01b7af93373755e02a8b86dc69114c312589249"
+content-hash = "d3f580343588751721fd804ff115bc13d7f105a9d4a12a9913d1ae7439c99004"
