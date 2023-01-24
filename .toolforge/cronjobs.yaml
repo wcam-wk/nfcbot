@@ -2,7 +2,7 @@
   name: dummy-defaults-job
   command: echo this is a dummy job to set defaults
   emails: onfailure
-  image: tf-python39
+  image: python3.9
   no-filelog: true
 - name: all-vios
   command: $HOME/repo/.toolforge/jobs/all-vios
