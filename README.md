@@ -11,6 +11,6 @@ nfcbot manages [non-free media](https://enwp.org/WP:NFC) on the English Wikipedi
 ## Toolforge setup
 ```shell
 $ git clone https://github.com/jjmc89-bot/nfcbot $HOME/repo
-$ toolforge-jobs run setup-venv --command $HOME/repo/.toolforge/bin/setup-venv --image tf-python39 --wait
+$ toolforge-jobs run setup-venv --command $HOME/repo/.toolforge/bin/setup-venv --image python3.9 --wait
 $ toolforge-jobs load $HOME/repo/.toolforge/cronjobs.yaml
 ```
