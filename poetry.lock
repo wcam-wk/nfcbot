@@ -404,14 +404,14 @@ rsa = ["cryptography"]
 
 [[package]]
 name = "pywikibot"
-version = "8.0.1"
+version = "8.0.2"
 description = "Python MediaWiki Bot Framework"
 category = "main"
 optional = false
 python-versions = ">=3.6.1"
 files = [
-    {file = "pywikibot-8.0.1-py3-none-any.whl", hash = "sha256:b091bbc3ff7a09a08815d6de9114e2f6542de2df2bd81e640888c33ea0fb7918"},
-    {file = "pywikibot-8.0.1.tar.gz", hash = "sha256:66b95cfc54e656a5d98cf1c07585ee20f13b8e4efc338d2656a11722df2728b1"},
+    {file = "pywikibot-8.0.2-py3-none-any.whl", hash = "sha256:f737e3594b0b45e8b08784a64fdc9239735c6bd32e967e88f5e83b31a73609f8"},
+    {file = "pywikibot-8.0.2.tar.gz", hash = "sha256:d6c92a3f9b9e592cc62772a7f146c2fbcecfec3ced7c3e68f03cb43a4ff3b9f1"},
 ]
 
 [package.dependencies]
@@ -657,4 +657,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9"
-content-hash = "d0f2889ff00b327203f4fc8faa0ba4a8027e160ad626ddf425542f10fff43752"
+content-hash = "56eaefec700998efef32dedbf4ecd0a25390b3a87f7733ab824f804d3933308d"
