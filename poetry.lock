@@ -444,14 +444,14 @@ wikitextparser = ["wikitextparser (>=0.47.0)"]
 
 [[package]]
 name = "pywikibot-extensions"
-version = "23.1.21"
+version = "23.3.25"
 description = "Extends the Pywikibot library"
 category = "main"
 optional = false
 python-versions = ">=3.7,<4.0"
 files = [
-    {file = "pywikibot_extensions-23.1.21-py3-none-any.whl", hash = "sha256:c9a6b227d0f9c2578588542f38cc6e9dd75f6d7a6212e510d96c82048feb9386"},
-    {file = "pywikibot_extensions-23.1.21.tar.gz", hash = "sha256:7cea7429886ce58383cb8da9e853c395a286d8ce6e12ec9212c9285ccbbaa284"},
+    {file = "pywikibot_extensions-23.3.25-py3-none-any.whl", hash = "sha256:8d660f9525cbfe75978bfa119cb2c22ab984ffd0f84c6fc9a940efabcc2762b6"},
+    {file = "pywikibot_extensions-23.3.25.tar.gz", hash = "sha256:fb8b52001817881e131b28a39c353033cfc7fdd97e97bdc3745fc8bce78228bc"},
 ]
 
 [package.dependencies]
@@ -657,4 +657,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9"
-content-hash = "56eaefec700998efef32dedbf4ecd0a25390b3a87f7733ab824f804d3933308d"
+content-hash = "ad9398fb329311b6da94b9b79cb91461929b39991c0341693dfb77e494dbf545"
