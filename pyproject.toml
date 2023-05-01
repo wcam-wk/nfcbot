@@ -68,7 +68,7 @@ pywikibot = {version = "8.1.0", extras = ["mwoauth", "mysql"]}
 pywikibot-extensions = "23.3.25"
 
 [tool.poetry.dev-dependencies]
-pylint = "2.17.2"
+pylint = "2.17.3"
 
 [tool.poetry.scripts]
 nfcbot = "nfcbot.cli:cli"
