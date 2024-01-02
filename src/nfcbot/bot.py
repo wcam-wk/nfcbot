@@ -74,9 +74,7 @@ class NfcBot(SingleSiteBot, ExistingPageBot):
                 pywikibot.error(e)
                 self.quit()
 
-    def put_current(  # pylint: disable=arguments-differ
-        self, new_text: str, **kwargs: Any
-    ) -> bool:
+    def put_current(self, new_text: str, **kwargs: Any) -> bool:
         """Save the current page with the specified text."""
         kwargs.setdefault("asynchronous", False)
         kwargs.setdefault("callback", self.log_issue)

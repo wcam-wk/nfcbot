@@ -64,27 +64,5 @@ mwparserfromhell = "0.6.5"
 pywikibot = {version = "8.6.0", extras = ["mwoauth", "mysql"]}
 pywikibot-extensions = "23.3.25"
 
-[tool.poetry.dev-dependencies]
-pylint = "3.0.3"
-
 [tool.poetry.scripts]
 nfcbot = "nfcbot.cli:cli"
-
-[tool.pylint]
-
-[tool.pylint.master]
-# Use multiple processes to speed up Pylint.
-jobs = 0  # default: 1
-
-[tool.pylint.basic]
-# Good variable names which should always be accepted
-good-names = "e,f,i,j,k,v,_"  # default: i,j,k,ex,Run,_
-
-[tool.pylint.design]
-max-parents = 10
-
-[tool.pylint.format]
-max-line-length = 79  # default: 100
-
-[tool.pylint.reports]
-reports = "yes"
