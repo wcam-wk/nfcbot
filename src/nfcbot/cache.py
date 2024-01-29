@@ -1,4 +1,5 @@
 """Caching for this package."""
+
 from __future__ import annotations
 
 import json

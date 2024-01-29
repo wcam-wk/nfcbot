@@ -3,6 +3,7 @@ Bots for this package.
 
 This module extends pywikibot.bot.
 """
+
 from __future__ import annotations
 
 import html

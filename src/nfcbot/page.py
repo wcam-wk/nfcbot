@@ -3,6 +3,7 @@ Objects representing various MediaWiki pages.
 
 This module extends pywikibot.page.
 """
+
 from __future__ import annotations
 
 import re
