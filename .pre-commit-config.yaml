@@ -90,6 +90,7 @@ repos:
       - id: mypy
         args: []
         additional_dependencies:
+          - mwparserfromhell-stubs
           - pywikibot-extensions
           - types-requests
   - repo: https://github.com/lovesegfault/beautysh

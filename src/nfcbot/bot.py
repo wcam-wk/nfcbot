@@ -241,7 +241,7 @@ class NfurFixerBot(NfcBot):
                     break
                 new_title = self.get_new_title(article, other_pages, vios)
                 if new_title:
-                    link.title = new_title
+                    link.title = new_title  # type: ignore[assignment]
 
     def treat_page(self) -> None:
         """Process one page."""
@@ -439,7 +439,7 @@ class FileRemoverBot(NfcBot):
                             pass
                         else:
                             self.log_issue(self.current_page, "[[WP:NFG]]")
-            tag.contents = "\n".join(lines) + "\n"
+            tag.contents = "\n".join(lines) + "\n"  # type: ignore[assignment]
             if not tag.contents.strip():
                 wikicode.remove(tag)
 
