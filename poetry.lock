@@ -233,13 +233,13 @@ rsa = ["cryptography"]
 
 [[package]]
 name = "pywikibot"
-version = "9.1.3"
+version = "9.2.0"
 description = "Python MediaWiki Bot Framework"
 optional = false
 python-versions = ">=3.7.0"
 files = [
-    {file = "pywikibot-9.1.3-py3-none-any.whl", hash = "sha256:7df20698704280d1b44bddb57c5c28700914cddb172cda8b155a705058d27769"},
-    {file = "pywikibot-9.1.3.tar.gz", hash = "sha256:28419926498eddd0c44f8e0db073b619b01d353aca3bf45bc404239cdf111fac"},
+    {file = "pywikibot-9.2.0-py3-none-any.whl", hash = "sha256:fd659c3111eebfb3704cddc4e2dcb7afac15f418a8c4cdd4ef680d7658237e60"},
+    {file = "pywikibot-9.2.0.tar.gz", hash = "sha256:3df116778b108207a9e03fdfbdea71eb2f41144fcc9247d8797a4b7a8417aa18"},
 ]
 
 [package.dependencies]
@@ -340,4 +340,4 @@ zstd = ["zstandard (>=0.18.0)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "1904130e85bfc9a8f3132c98904cfef1eb4efe71165c528bf36450da5ba85e28"
+content-hash = "996593a2c74aa10ee96f24d0286be4c2e41a472caa7d65c4115f939ef8801430"
