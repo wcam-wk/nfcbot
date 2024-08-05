@@ -70,7 +70,7 @@ repos:
           - --skip
           - B101
   - repo: https://github.com/PyCQA/flake8
-    rev: 7.1.0
+    rev: 7.1.1
     hooks:
       - id: flake8
         additional_dependencies:
@@ -82,7 +82,7 @@ repos:
           - --min-python-version
           - 3.11.0
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.11.0
+    rev: v1.11.1
     hooks:
       - id: mypy
         args: []
