@@ -3,7 +3,7 @@ set -euo pipefail
 
 . "$HOME"/repo/.venv/bin/activate
 
-COMMON="-log:recent-vios.log"
+COMMON="-dir:/repo -log:recent-vios.log"
 PAGE="User:Wcam-bot/report/NFCC_violations/recent"
 QUERY=$(cat <<EOF
 select distinct
