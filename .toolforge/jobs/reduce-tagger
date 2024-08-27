@@ -12,7 +12,7 @@ from
   left join page p on cl.cl_from = p.page_id
   left join image img on p.page_title = img.img_name
 where
-  cl.cl_to = 'All_non-free_media'
+  cl.cl_to = '所有非自由媒體'
   and p.page_namespace = 6
   and img_width * img_height / 1000000 >= 0.105
   and img_major_mime = 'image'
