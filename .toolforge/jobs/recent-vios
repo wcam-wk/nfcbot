@@ -4,7 +4,7 @@ set -euo pipefail
 . "$HOME"/repo/.venv/bin/activate
 
 COMMON="-log:recent-vios.log"
-PAGE="User:JJMC89_bot/report/NFCC_violations/recent"
+PAGE="User:Wcam_bot/report/NFCC_violations/recent"
 QUERY=$(cat <<EOF
 select distinct
   p1.page_namespace,
