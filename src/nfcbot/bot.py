@@ -364,10 +364,10 @@ class FileRemoverBot(NfcBot):
     """Bot to remove files from pages."""
 
     SUMMARIES = {
-        "9": "Non-free files are only permitted in articles.",
+        "9": "[[WP:NFCC#9|方针]]规定非自由文件只可在条目中使用",
         "10c": (
-            "No valid [[WP:NFUR|non-free use rationale]] for this page. See"
-            " [[WP:NFC#Implementation]]. Questions? [[WP:MCQ|Ask here]]."
+            "非自由档案的描述页并未提供在本条目使用的单独、专门的合理使用依据，违反[[WP:NFCC#10c]]，根据[[WP:NFCCE]]取消使用。"
+            "如有疑问请[[WP:VPH|在此提问]]."
         ),
     }
 
