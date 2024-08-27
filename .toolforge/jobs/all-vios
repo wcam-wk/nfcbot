@@ -4,7 +4,7 @@ set -euo pipefail
 
 . "$HOME"/repo/.venv/bin/activate
 
-COMMON="-dir:/repo -log:all-vios.log"
+COMMON="-dir:"$HOME"/repo -log:all-vios.log"
 PAGE="User:Wcam-bot/report/NFCC_violations"
 
 nfcbot list-vios $COMMON -cat:所有非自由媒體 $PAGE
