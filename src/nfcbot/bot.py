@@ -120,7 +120,7 @@ class NfurFixerBot(NfcBot):
     """Bot to fix NFUR disambiguation errors."""
 
     update_options = {
-        "summary": "Update [[WP:NFUR|non-free use rationale]] per usage"
+        "summary": "根据实际使用情况更新[[WP:NFURG|非自由使用依据]]"
     }
 
     def __init__(self, **kwargs: Any) -> None:
@@ -265,7 +265,7 @@ class OrphanTaggerBot(NfcBot):
 
     update_options = {
         "mode": "",
-        "summary": "Tag orphaned non-free file per [[WP:NFCC#7]]",
+        "summary": "根据[[WP:NFCC#7]]标记孤立非自由文件",
     }
 
     def __init__(self, **kwargs: Any) -> None:
@@ -503,7 +503,7 @@ class FileRemoverBot(NfcBot):
         if text == new_text:
             self.log_issue(self.current_page, "Failed to remove file(s)")
             return
-        summary = "Removed [[WP:NFCC]] violation(s). "
+        summary = "移除违反[[WP:NFCC]]使用的文件"
         if self.current_page.is_article:
             summary += self.SUMMARIES["10c"]
         else:
