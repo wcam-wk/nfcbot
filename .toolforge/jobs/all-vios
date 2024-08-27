@@ -7,7 +7,7 @@ set -euo pipefail
 COMMON="-dir:.pywikibot-all -log:all-vios.log"
 PAGE="User:Wcam-bot/report/NFCC_violations"
 
-nfcbot list-vios $COMMON -cat:All_non-free_media $PAGE
+nfcbot list-vios $COMMON -cat:所有非自由媒體 $PAGE
 
 nfcbot nfur-fixer $COMMON -ns:6 -links:$PAGE --always
 
