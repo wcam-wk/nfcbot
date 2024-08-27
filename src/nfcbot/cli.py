@@ -71,7 +71,7 @@ def output_violations(
         )
     else:
         text = "None"
-    page.save_bot_start_end(text, summary="Updating NFCC violations report")
+    page.save_bot_start_end(text, summary="更新NFCC违反情况报告")
 
 
 def parse_script_args(*args: str) -> argparse.Namespace:
