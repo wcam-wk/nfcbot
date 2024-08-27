@@ -5,7 +5,7 @@ set -euo pipefail
 . "$HOME"/repo/.venv/bin/activate
 
 COMMON="-dir:.pywikibot-all -log:all-vios.log"
-PAGE="User:JJMC89_bot/report/NFCC_violations"
+PAGE="User:Wcam_bot/report/NFCC_violations"
 
 nfcbot list-vios $COMMON -cat:All_non-free_media $PAGE
 
