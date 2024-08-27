@@ -12,15 +12,7 @@
   command: $HOME/repo/.toolforge/jobs/build-cache
   schedule: '22 10 7/7 * *'
   <<: *defaults
-- name: orphan-revs-tagger
-  command: $HOME/repo/.toolforge/jobs/orphan-revs-tagger
-  schedule: '3 3 * * *'
-  <<: *defaults
 - name: recent-vios
   command: $HOME/repo/.toolforge/jobs/recent-vios
   schedule: '37 */4 * * *'
-  <<: *defaults
-- name: reduce-tagger
-  command: $HOME/repo/.toolforge/jobs/reduce-tagger
-  schedule: '22 19 * * *'
   <<: *defaults
