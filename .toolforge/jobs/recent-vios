@@ -16,7 +16,7 @@ from
   left join page p2 on il.il_from = p2.page_id
   left join recentchanges rc on rc.rc_title = p2.page_title and rc.rc_namespace = p2.page_namespace
 where
-  cl.cl_to = 'All_non-free_media'
+  cl.cl_to = '所有非自由媒體'
   and cl.cl_type = 'file'
   and p1.page_namespace = 6
   and rc.rc_bot = 0
