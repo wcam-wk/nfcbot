@@ -16,6 +16,7 @@ import mwparserfromhell
 import pywikibot
 from mwparserfromhell.wikicode import Wikicode
 from pywikibot.bot import ExistingPageBot, SingleSiteBot
+from pywikibot.data.api import Request
 from pywikibot.textlib import removeDisabledParts, replaceExcept
 from pywikibot_extensions.page import FilePage, get_redirects
 from pywikibot_extensions.textlib import FILE_LINK_REGEX, iterable_to_wikitext
@@ -166,6 +167,19 @@ class NfurFixerBot(NfcBot):
                 return None, other_pages
         if page.isDisambig():
             other_pages.extend(page.linkedPages(namespaces=0))
+        if page.pageid == 0:
+            params = {
+                'action': 'query',
+                'titles': page.title(),
+                'redirects': 1,
+                'converttitles': 1,
+                'format': 'json',
+                'formatversion': 2,
+            }
+            r = Request(site=self.site, parameters=params)
+            data = r.submit()
+            converted_title = data['query'].get('converted', [])[0]['to']
+            other_pages.append(Page(self.site, converted_title))
         return page, other_pages
 
     @staticmethod
