@@ -4,7 +4,7 @@ repos:
       - id: check-hooks-apply
       - id: check-useless-excludes
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.6.0
+    rev: v6.0.0
     hooks:
       - id: check-added-large-files
       - id: check-ast
@@ -36,17 +36,17 @@ repos:
     hooks:
       - id: script-must-not-have-extension
   - repo: https://github.com/asottile/pyupgrade
-    rev: v3.17.0
+    rev: v3.20.0
     hooks:
       - id: pyupgrade
         args:
-          - --py311-plus
+          - --py313-plus
   - repo: https://github.com/PyCQA/autoflake
     rev: v2.3.1
     hooks:
       - id: autoflake
   - repo: https://github.com/PyCQA/isort
-    rev: 5.13.2
+    rev: 6.0.1
     hooks:
       - id: isort
   - repo: https://github.com/asottile/yesqa
@@ -55,34 +55,32 @@ repos:
       - id: yesqa
         additional_dependencies:
           - flake8-bugbear
-          - flake8-docstrings
           - flake8-typing-imports
           - pep8-naming
   - repo: https://github.com/psf/black-pre-commit-mirror
-    rev: 24.8.0
+    rev: 25.1.0
     hooks:
       - id: black
   - repo: https://github.com/PyCQA/bandit
-    rev: 1.7.9
+    rev: 1.8.6
     hooks:
       - id: bandit
         args:
           - --skip
           - B101
   - repo: https://github.com/PyCQA/flake8
-    rev: 7.1.1
+    rev: 7.3.0
     hooks:
       - id: flake8
         additional_dependencies:
           - flake8-bugbear
-          - flake8-docstrings
           - flake8-typing-imports
           - pep8-naming
         args:
           - --min-python-version
-          - 3.11.0
+          - 3.13.0
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.11.2
+    rev: v1.17.1
     hooks:
       - id: mypy
         args: []
@@ -94,7 +92,9 @@ repos:
     rev: v6.2.1
     hooks:
       - id: beautysh
+        additional_dependencies:
+          - setuptools  # depends on pkg_resources
   - repo: https://github.com/shellcheck-py/shellcheck-py
-    rev: v0.10.0.1
+    rev: v0.11.0.1
     hooks:
       - id: shellcheck

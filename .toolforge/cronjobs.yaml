@@ -2,11 +2,12 @@
   name: dummy-defaults-job
   command: echo this is a dummy job to set defaults
   emails: onfailure
-  image: python3.11
+  image: python3.13
   no-filelog: true
 - name: all-vios
   command: $HOME/repo/.toolforge/jobs/all-vios
   schedule: '28 14 14/14 * *'
+  mem: "2Gi"
   <<: *defaults
 - name: build-cache
   command: $HOME/repo/.toolforge/jobs/build-cache

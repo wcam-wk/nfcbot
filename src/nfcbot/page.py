@@ -1,15 +1,9 @@
-"""
-Objects representing various MediaWiki pages.
-
-This module extends pywikibot.page.
-"""
-
 from __future__ import annotations
 
 import re
 from collections.abc import Iterable
 from contextlib import suppress
-from dataclasses import dataclass
+from typing import NamedTuple
 
 import mwparserfromhell
 import pywikibot
@@ -21,17 +15,13 @@ import nfcbot
 from nfcbot.cache import get_cache
 
 
-@dataclass(frozen=True)
-class NfccViolation:
-    """Represents a NFCC violation."""
-
+class NfccViolation(NamedTuple):
     file: NonFreeFilePage
     page: Page
     criterion: str
 
 
 class Page(pywikibot_extensions.page.Page):
-    """Represents a MediaWiki page."""
 
     @property
     def nfcc_usage_violations(self) -> list[NfccViolation]:
@@ -47,7 +37,6 @@ class Page(pywikibot_extensions.page.Page):
 
     @property
     def article_title_regex(self) -> str:
-        """Return a regex to match the article title."""
         title = self.title(underscore=True)
         title = re.escape(title)
         title = title.replace("_", "[ _]+")
@@ -60,19 +49,18 @@ class Page(pywikibot_extensions.page.Page):
 
     @property
     def article_titles_regex(self) -> str:
-        """Return a regex to match article titles, including redirects."""
         redirects = get_redirects(frozenset([self]), namespaces=0)
         titles = [Page(r).article_title_regex for r in redirects]
         return rf"(?:{'|'.join(titles)})"
 
 
 class NonFreeFilePage(pywikibot_extensions.page.FilePage, Page):
-    """Represents a non-free file description page."""
 
     def __init__(
-        self, source: pywikibot_extensions.page.PageSource, title: str = ""
+        self,
+        source: pywikibot_extensions.page.PageSource,
+        title: str = "",
     ) -> None:
-        """Initialize."""
         super().__init__(source, title)
         if (
             pywikibot.Category(self.site, nfcbot.NONFREE_FILE_CAT)
@@ -86,7 +74,6 @@ class NonFreeFilePage(pywikibot_extensions.page.FilePage, Page):
 
     @property
     def nfcc_file_violations(self) -> list[NfccViolation]:
-        """Return NFCC file violations."""
         if self._nfcc_file_violations:
             return self._nfcc_file_violations
         if self.file_is_used:
@@ -110,7 +97,6 @@ class NonFreeFilePage(pywikibot_extensions.page.FilePage, Page):
         return self._nfcc_file_violations
 
     def _10c_parse(self) -> tuple[set[Page], str]:
-        """Return article wikilinks and wikitext without file ns templates."""
         if self._10c_articles or self._10c_wikitext:
             return self._10c_articles, self._10c_wikitext
         pywikibot.log(f"Parsing {self!r}")
@@ -152,7 +138,6 @@ class NonFreeFilePage(pywikibot_extensions.page.FilePage, Page):
 
     @staticmethod
     def _get_articles(pages: Iterable[Page]) -> set[Page]:
-        """Return articles from an iterable of pages."""
         articles = set()
         for page in pages:
             if page.namespace() < 0:
@@ -170,7 +155,6 @@ class NonFreeFilePage(pywikibot_extensions.page.FilePage, Page):
 
     @property
     def nfcc_usage_violations(self) -> list[NfccViolation]:
-        """Return NFCC usage violations."""
         if self._nfcc_usage_violations:
             return self._nfcc_usage_violations
         for page in self.using_pages():
@@ -188,5 +172,4 @@ class NonFreeFilePage(pywikibot_extensions.page.FilePage, Page):
 
     @property
     def nfcc_violations(self) -> list[NfccViolation]:
-        """Return NFCC violations."""
         return self.nfcc_file_violations + self.nfcc_usage_violations

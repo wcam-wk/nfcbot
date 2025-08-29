@@ -3,7 +3,7 @@ set -euo pipefail
 
 . "$HOME"/repo/.venv/bin/activate
 
-COMMON="-dir:/repo -log:recent-vios.log"
+COMMON="-dir:"$HOME"/repo -log:recent-vios.log"
 PAGE="User:Wcam-bot/report/NFCC_violations/recent"
 QUERY=$(cat <<EOF
 select distinct
@@ -20,7 +20,7 @@ where
   and cl.cl_type = 'file'
   and p1.page_namespace = 6
   and rc.rc_bot = 0
-  and rc.rc_type in (0, 1)
+  and rc.rc_source in ('mw.edit', 'mw.new')
   and $(date -ud '-5 hours' +'%Y%m%d%H%M%S') <= rc.rc_timestamp;
 EOF
 )
@@ -29,4 +29,4 @@ nfcbot list-vios $COMMON -mysqlquery:"$QUERY" $PAGE
 
 nfcbot nfur-fixer $COMMON -ns:6 -links:$PAGE --always
 
-nfcbot remove-vios $COMMON -ns:not:6 -links:$PAGE --always
+#nfcbot remove-vios $COMMON -ns:not:6 -links:$PAGE --always

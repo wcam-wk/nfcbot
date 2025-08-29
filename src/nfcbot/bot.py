@@ -1,9 +1,3 @@
-"""
-Bots for this package.
-
-This module extends pywikibot.bot.
-"""
-
 from __future__ import annotations
 
 import html
@@ -27,18 +21,15 @@ from nfcbot.page import NfccViolation, NonFreeFilePage, Page
 
 
 class NfcBot(SingleSiteBot, ExistingPageBot):
-    """Base bot for this package."""
 
     EXCEPTIONS = ("comment", "nowiki", "pre", "syntaxhighlight")
 
     def __init__(self, **kwargs: Any) -> None:
-        """Initialize."""
         super().__init__(**kwargs)
         self.log_list: list[object] = []
         self.start_time = self.site.server_time()
 
     def init_page(self, item: object) -> NonFreeFilePage | Page:
-        """Re-class the page."""
         page = super().init_page(item)
         try:
             return NonFreeFilePage(page)
@@ -46,23 +37,17 @@ class NfcBot(SingleSiteBot, ExistingPageBot):
             return Page(page)
 
     def log_issue(self, page: pywikibot.Page, issue: object) -> None:
-        """
-        Log to the logfile and add to self.log_list.
-
-        :param page: Page the issue was encountered on
-        :param issue: Issue encountered
-        """
-        if issue:
-            pywikibot.log(f"{page!r}: {issue!r}")
-            issue_s = html.escape(str(issue))
-            issue_s = issue_s.replace("\n", r"\n")
-            self.log_list.append(
-                f"{page.title(as_link=True, textlink=True)}: "
-                f"<code>{issue_s}</code>"
-            )
+        if not issue:
+            return
+        pywikibot.log(f"{page!r}: {issue!r}")
+        issue_s = html.escape(str(issue))
+        issue_s = issue_s.replace("\n", r"\n")
+        self.log_list.append(
+            f"{page.title(as_link=True, textlink=True)}: "
+            f"<code>{issue_s}</code>"
+        )
 
     def check_disabled(self) -> None:
-        """Check if the task is disabled. If so, quit."""
         class_name = self.__class__.__name__
         page = Page(
             self.site,
@@ -77,7 +62,6 @@ class NfcBot(SingleSiteBot, ExistingPageBot):
                 self.quit()
 
     def put_current(self, new_text: str, **kwargs: Any) -> bool:
-        """Save the current page with the specified text."""
         kwargs.setdefault("asynchronous", False)
         kwargs.setdefault("callback", self.log_issue)
         kwargs.setdefault("minor", self.current_page.namespace() == 3)
@@ -89,11 +73,9 @@ class NfcBot(SingleSiteBot, ExistingPageBot):
             return False
 
     def remove_disabled_parts(self, text: str) -> str:
-        """Remove disabled parts from wikitext."""
         return removeDisabledParts(text, tags=self.EXCEPTIONS, site=self.site)
 
     def teardown(self) -> None:
-        """Log issues."""
         if not self.log_list:
             return
         page = Page(
@@ -105,27 +87,24 @@ class NfcBot(SingleSiteBot, ExistingPageBot):
         page.save(
             text=f"{iterable_to_wikitext(self.log_list).strip()}\n\n~~~~",
             summary=str(self.start_time),
-            botflag=False,
+            bot=False,
             force=True,
             section="new",
         )
 
     def treat_page(self) -> None:
-        """Process one page (abstract method)."""
         raise NotImplementedError(
             f"Method {self.__class__.__name__}.treat_page() not implemented."
         )
 
 
 class NfurFixerBot(NfcBot):
-    """Bot to fix NFUR disambiguation errors."""
 
     update_options = {
         "summary": "根据实际使用情况更新[[WP:NFURG|非自由使用依据]]"
     }
 
     def __init__(self, **kwargs: Any) -> None:
-        """Initialize."""
         super().__init__(**kwargs)
         cache = get_cache(self.site)
         self.nfur_templates = {
@@ -133,7 +112,6 @@ class NfurFixerBot(NfcBot):
         }
 
     def skip_page(self, page: Page) -> bool:
-        """Sikp the page if it is not a non-free file."""
         if super().skip_page(page):
             return True
         if not isinstance(page, NonFreeFilePage):
@@ -142,15 +120,9 @@ class NfurFixerBot(NfcBot):
         return False
 
     def handle_title(
-        self, title: str
+        self,
+        title: str,
     ) -> tuple[Page | None, list[pywikibot.Page]]:
-        """
-        Return page and list of other possible pages.
-
-        Returns None and an empty list if the title is not valid.
-
-        :param title: Title of the page
-        """
         other_pages: list[pywikibot.Page] = []
         try:
             page = Page.from_wikilink(title, self.site)
@@ -188,13 +160,6 @@ class NfurFixerBot(NfcBot):
         other_pages: list[pywikibot.Page],
         vios: Iterable[NfccViolation],
     ) -> str | None:
-        """
-        Return the new title or None.
-
-        :param article: Article needing possible replacement
-        :param other_pages: List of other pages
-        :param vios: List of violations
-        """
         dab_regex = re.compile(
             rf"""
             \s*
@@ -221,7 +186,6 @@ class NfurFixerBot(NfcBot):
         usage: Iterable[pywikibot.Page],
         vios: Iterable[NfccViolation],
     ) -> None:
-        """Process the templates on the page."""
         for tpl in wikicode.ifilter_templates():
             with suppress(ValueError):
                 template = Page.from_wikilink(tpl.name.strip(), self.site, 10)
@@ -245,7 +209,6 @@ class NfurFixerBot(NfcBot):
         usage: Iterable[pywikibot.Page],
         vios: Iterable[NfccViolation],
     ) -> None:
-        """Process the headings on the page."""
         for heading in wikicode.ifilter_headings():
             for link in heading.title.ifilter_wikilinks():
                 article, other_pages = self.handle_title(link.title.strip())
@@ -255,10 +218,9 @@ class NfurFixerBot(NfcBot):
                     break
                 new_title = self.get_new_title(article, other_pages, vios)
                 if new_title:
-                    link.title = new_title  # type: ignore[assignment]
+                    link.title = new_title
 
     def treat_page(self) -> None:
-        """Process one page."""
         self.check_disabled()
         vios = self.current_page.nfcc_usage_violations
         vios = [vio for vio in vios if vio.criterion == "10c"]
@@ -275,7 +237,6 @@ class NfurFixerBot(NfcBot):
 
 
 class OrphanTaggerBot(NfcBot):
-    """Bot to tag orphaned non-free files or revisions."""
 
     update_options = {
         "mode": "",
@@ -283,7 +244,6 @@ class OrphanTaggerBot(NfcBot):
     }
 
     def __init__(self, **kwargs: Any) -> None:
-        """Initialize."""
         super().__init__(**kwargs)
         if self.opt.mode == "file":
             self.tpl = "di-orphaned non-free file"
@@ -294,13 +254,6 @@ class OrphanTaggerBot(NfcBot):
         self.add_text = f"{{{{subst:{self.tpl}}}}}\n"
 
     def skip_page(self, page: Page) -> bool:
-        """
-        Sikp the page if any of the below criteria are met.
-
-            1) It is not a non-free file
-            2) It is not orphaned
-            3) It has the relevant template
-        """
         if super().skip_page(page):
             return True
         if not isinstance(page, NonFreeFilePage):
@@ -320,7 +273,6 @@ class OrphanTaggerBot(NfcBot):
         return False
 
     def treat_page(self) -> None:
-        """Process one page."""
         self.check_disabled()
         self.put_current(
             self.add_text + self.current_page.text,
@@ -329,26 +281,16 @@ class OrphanTaggerBot(NfcBot):
 
 
 class ReduceTaggerBot(NfcBot):
-    """Bot to tag non-free files for reduction."""
 
     update_options = {
         "summary": "Request reduction. See [[WP:IMAGERES]] for details."
     }
 
     def __init__(self, **kwargs: Any) -> None:
-        """Initialize."""
         super().__init__(**kwargs)
         self.add_text = f"{{{{{nfcbot.NONFREE_REDUCE_TPL[0]}}}}}\n"
 
     def skip_page(self, page: Page) -> bool:
-        """
-        Sikp the page if any of the below criteria are met.
-
-            1) Not a non-free file
-            2) Doesn't need reduction
-            3) Has {{non-free reduce}}
-            4) Has {{non-free no reduce}}
-        """
         if super().skip_page(page):
             return True
         if not isinstance(page, NonFreeFilePage):
@@ -366,7 +308,6 @@ class ReduceTaggerBot(NfcBot):
         return False
 
     def treat_page(self) -> None:
-        """Process one page."""
         self.check_disabled()
         self.put_current(
             self.add_text + self.current_page.text,
@@ -375,7 +316,6 @@ class ReduceTaggerBot(NfcBot):
 
 
 class FileRemoverBot(NfcBot):
-    """Bot to remove files from pages."""
 
     SUMMARIES = {
         "9": "[[WP:NFCC#9|方针]]规定非自由文件只可在条目中使用",
@@ -386,7 +326,6 @@ class FileRemoverBot(NfcBot):
     }
 
     def __init__(self, **kwargs: Any) -> None:
-        """Initialize."""
         super().__init__(**kwargs)
         self.file_link_regex = re.compile(
             FILE_LINK_REGEX.format("|".join(self.site.namespaces.FILE)),
@@ -394,14 +333,10 @@ class FileRemoverBot(NfcBot):
         )
 
     def remove_file_links(
-        self, text: str, files: Iterable[NonFreeFilePage]
+        self,
+        text: str,
+        files: Iterable[NonFreeFilePage],
     ) -> str:
-        """
-        Remove file links.
-
-        :param text: Page text
-        :param files: Files to remove
-        """
         if self.current_page.namespace() % 2 == 0:
             old_fmt = r" *{} *"
             new_fmt = ""
@@ -428,14 +363,10 @@ class FileRemoverBot(NfcBot):
         return text
 
     def remove_gallery_files(
-        self, wikicode: Wikicode, files: Iterable[NonFreeFilePage]
+        self,
+        wikicode: Wikicode,
+        files: Iterable[NonFreeFilePage],
     ) -> None:
-        """
-        Remove files from <gallery>.
-
-        :param wikicode: Parsed wikitext
-        :param files: Files to remove
-        """
         for tag in wikicode.ifilter_tags():
             if tag.tag.lower() != "gallery" or not tag.contents.strip():
                 continue
@@ -453,19 +384,15 @@ class FileRemoverBot(NfcBot):
                             pass
                         else:
                             self.log_issue(self.current_page, "[[WP:NFG]]")
-            tag.contents = "\n".join(lines) + "\n"  # type: ignore[assignment]
+            tag.contents = "\n".join(lines) + "\n"
             if not tag.contents.strip():
                 wikicode.remove(tag)
 
     def remove_imagemap_files(
-        self, wikicode: Wikicode, files: Iterable[NonFreeFilePage]
+        self,
+        wikicode: Wikicode,
+        files: Iterable[NonFreeFilePage],
     ) -> None:
-        """
-        Remove files from <imagemap>.
-
-        :param wikicode: Parsed wikitext
-        :param files: Files to remove
-        """
         for tag in wikicode.ifilter_tags():
             if tag.tag.lower() != "imagemap" or not tag.contents.strip():
                 continue
@@ -483,14 +410,10 @@ class FileRemoverBot(NfcBot):
                 break
 
     def remove_template_files(
-        self, wikicode: Wikicode, files: Iterable[NonFreeFilePage]
+        self,
+        wikicode: Wikicode,
+        files: Iterable[NonFreeFilePage],
     ) -> None:
-        """
-        Remove files from template parameters.
-
-        :param wikicode: Parsed wikitext
-        :param files: Files to remove
-        """
         for tpl in wikicode.ifilter_templates():
             for param in tpl.params:
                 with suppress(ValueError):
@@ -501,7 +424,6 @@ class FileRemoverBot(NfcBot):
                         tpl.remove(param, keep_field=True)
 
     def treat_page(self) -> None:
-        """Process one page."""
         self.check_disabled()
         vios = self.current_page.nfcc_usage_violations
         files = get_redirects(frozenset(vio.file for vio in vios))

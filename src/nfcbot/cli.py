@@ -1,5 +1,3 @@
-"""Command line interface."""
-
 from __future__ import annotations
 
 import argparse
@@ -30,15 +28,10 @@ CLASS_MAP: dict[str, type[NfcBot]] = {
 
 
 def output_violations(
-    page: Page, generator: Iterable[pywikibot.Page], limit: int | None = None
+    page: Page,
+    generator: Iterable[pywikibot.Page],
+    limit: int | None = None,
 ) -> None:
-    """
-    Write NFCC violations to a page.
-
-    :param page: Page to output to
-    :param generator: Pages to check
-    :param limit: The maximum number of files to list
-    """
     text = ""
     file_violation_count = 0
     for file_page in generator:
@@ -75,7 +68,6 @@ def output_violations(
 
 
 def parse_script_args(*args: str) -> argparse.Namespace:
-    """Parse the CLI script arguments."""
     parser = argparse.ArgumentParser(
         description="NFC bot",
         epilog=parameterHelp
@@ -159,7 +151,6 @@ def parse_script_args(*args: str) -> argparse.Namespace:
 
 
 def cli(*args: str) -> int:
-    """CLI for the package."""
     local_args = pywikibot.handle_args(args, do_help=False)
     site = pywikibot.Site()
     gen_factory = GeneratorFactory(site)

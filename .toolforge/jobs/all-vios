@@ -7,8 +7,9 @@ set -euo pipefail
 COMMON="-dir:"$HOME"/repo -log:all-vios.log"
 PAGE="User:Wcam-bot/report/NFCC_violations"
 
-nfcbot list-vios $COMMON -cat:所有非自由媒體 $PAGE
+nfcbot list-vios $COMMON -cat:人物传记图像 $PAGE
+#nfcbot list-vios $COMMON -cat:所有非自由媒體 $PAGE
 
-nfcbot nfur-fixer $COMMON -ns:6 -links:$PAGE --always
+# nfcbot nfur-fixer $COMMON -ns:6 -links:$PAGE --always
 
-nfcbot remove-vios $COMMON -ns:not:6 -links:$PAGE --always
+# nfcbot remove-vios $COMMON -ns:not:6 -links:$PAGE --always

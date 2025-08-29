@@ -1,27 +1,58 @@
 [build-system]
-requires = ["poetry_core>=1.0.8"]
+requires = ["poetry-core>=2.0.0"]
 build-backend = "poetry.core.masonry.api"
 
 
+[project]
+authors = [
+    { name = "JJMC89" },
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Console",
+    "Intended Audience :: Other Audience",
+    "License :: OSI Approved :: MIT License",
+    "Natural Language :: English",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3 :: Only",
+    "Topic :: Internet :: WWW/HTTP :: Dynamic Content :: Wiki",
+    "Typing :: Typed",
+]
+dependencies = [
+    "mwparserfromhell == 0.7.2",
+    "pywikibot [mwoauth, mysql] == 10.3.2",
+    "pywikibot-extensions == 24.9.21",
+]
+description = "Non-free content bot"
+keywords = [ "bot", "NFC", "NFCC", "non-free", "wikipedia" ]
+license = { text = "MIT" }
+name = "nfcbot"
+readme = "README.md"
+requires-python = ">=3.13"
+version = "0.4.0"
+
+[project.scripts]
+nfcbot = "nfcbot.cli:cli"
+
+[project.urls]
+source = "https://github.com/jjmc89-bot/nfcbot"
+
+
 [tool.black]
-target-version = ["py311"]
+target-version = ["py313"]
 line-length = 79  # default: 88
 
 
 [tool.isort]
-py_version = 311
 add_imports = ["from __future__ import annotations"]
 atomic = true
-ensure_newline_before_comments = true
-force_grid_wrap = 0
-include_trailing_comma = true
 lines_after_imports = 2
-multi_line_output = 3
-use_parentheses = true
+profile = "black"
+py_version = 313
 
 
 [tool.mypy]
-python_version = 3.11
+python_version = 3.13
 enable_error_code = [
     "ignore-without-code",
 ]
@@ -37,31 +68,6 @@ ignore_missing_imports = true
 
 
 [tool.poetry]
-authors = ["JJMC89"]
-classifiers = [
-    "Development Status :: 4 - Beta",
-    "Environment :: Console",
-    "Intended Audience :: Other Audience",
-    "License :: OSI Approved :: MIT License",
-    "Natural Language :: English",
-    "Operating System :: OS Independent",
-    "Programming Language :: Python :: 3 :: Only",
-    "Topic :: Internet :: WWW/HTTP :: Dynamic Content :: Wiki",
-    "Typing :: Typed",
-]
-description = "Non-free content bot"
-keywords = ["bot", "NFC", "NFCC", "non-free", "wikipedia"]
-license = "MIT"
-name = "nfcbot"
-readme = "README.md"
-repository = "https://github.com/jjmc89-bot/nfcbot"
-version = "0.3.0"
 
 [tool.poetry.dependencies]
-python = "^3.11"
-mwparserfromhell = "0.6.6"
-pywikibot = {version = "9.3.0", extras = ["mwoauth", "mysql"]}
-pywikibot-extensions = "23.3.25"
-
-[tool.poetry.scripts]
-nfcbot = "nfcbot.cli:cli"
+python = "^3.13"
