@@ -118,6 +118,25 @@ class NfurFixerBot(NfcBot):
             pywikibot.error(f"{page!r} is not a non-free file.")
             return True
         return False
+    
+    def _get_converted_title(
+        self,
+        title: str,
+    ) -> str:
+        params = {
+            'action': 'query',
+            'titles': title,
+            'redirects': 1,
+            'converttitles': 1,
+            'format': 'json',
+            'formatversion': 2,
+        }
+        r = Request(site=self.site, parameters=params)
+        data = r.submit()
+        converted = data['query'].get('converted', [])
+        if converted:
+            return converted[0]['to']
+        return title
 
     def handle_title(
         self,
@@ -125,6 +144,7 @@ class NfurFixerBot(NfcBot):
     ) -> tuple[Page | None, list[pywikibot.Page]]:
         other_pages: list[pywikibot.Page] = []
         try:
+            title = self._get_converted_title(title)
             page = Page.from_wikilink(title, self.site)
         except ValueError as e:
             self.log_issue(self.current_page, e)
@@ -139,19 +159,6 @@ class NfurFixerBot(NfcBot):
                 return None, other_pages
         if page.isDisambig():
             other_pages.extend(page.linkedPages(namespaces=0))
-        if page.pageid == 0:
-            params = {
-                'action': 'query',
-                'titles': page.title(),
-                'redirects': 1,
-                'converttitles': 1,
-                'format': 'json',
-                'formatversion': 2,
-            }
-            r = Request(site=self.site, parameters=params)
-            data = r.submit()
-            converted_title = data['query'].get('converted', [])[0]['to']
-            other_pages.append(Page(self.site, converted_title))
         return page, other_pages
 
     @staticmethod
