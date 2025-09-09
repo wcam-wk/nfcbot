@@ -144,7 +144,6 @@ class NfurFixerBot(NfcBot):
     ) -> tuple[Page | None, list[pywikibot.Page]]:
         other_pages: list[pywikibot.Page] = []
         try:
-            title = self._get_converted_title(title)
             page = Page.from_wikilink(title, self.site)
         except ValueError as e:
             self.log_issue(self.current_page, e)
@@ -154,6 +153,7 @@ class NfurFixerBot(NfcBot):
         if page.isRedirectPage():
             try:
                 page = Page(page.getRedirectTarget())
+                other_pages.append(page)
             except pywikibot.exceptions.Error as e:
                 self.log_issue(self.current_page, e)
                 return None, other_pages
@@ -201,11 +201,22 @@ class NfurFixerBot(NfcBot):
                 for param in reversed(tpl.params):
                     if not param.name.matches("Article"):
                         continue
-                    article, other_pages = self.handle_title(str(param.value))
+                    article_param_value = str(param.value).strip()
+                    article_param_value = re.sub(r'[\n\t\r\f\v]', '', article_param_value)
+                    article, other_pages = self.handle_title(article_param_value)
+                    converted = self._get_converted_title(article_param_value)
+                    self.log_issue(self.current_page, f"Original: {article_param_value}, Converted: {converted}")
+                    if converted != article_param_value:
+                        self.log_issue(self.current_page, f"Using converted title: {converted}")
+                        _, other_pages = self.handle_title(converted)
+                        other_pages.append(
+                            Page.from_wikilink(converted, self.site)
+                        )
                     if article is None:
                         continue
                     if article in usage:
                         break
+                    self.log_issue(self.current_page, f"Found article: {article}, other pages: {other_pages}")
                     new_title = self.get_new_title(article, other_pages, vios)
                     if new_title:
                         tpl.add(param.name, new_title)
@@ -452,3 +463,4 @@ class FileRemoverBot(NfcBot):
         else:
             summary += self.SUMMARIES["9"]
         self.put_current(new_text, summary=summary)
+
