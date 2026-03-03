@@ -20,7 +20,7 @@ classifiers = [
 ]
 dependencies = [
     "mwparserfromhell == 0.7.2",
-    "pywikibot [mwoauth, mysql] == 10.3.2",
+    "pywikibot [mwoauth, mysql] == 11.0.0",
     "pywikibot-extensions == 24.9.21",
 ]
 description = "Non-free content bot"
@@ -46,7 +46,6 @@ line-length = 79  # default: 88
 [tool.isort]
 add_imports = ["from __future__ import annotations"]
 atomic = true
-lines_after_imports = 2
 profile = "black"
 py_version = 313
 

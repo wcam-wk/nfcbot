@@ -36,17 +36,17 @@ repos:
     hooks:
       - id: script-must-not-have-extension
   - repo: https://github.com/asottile/pyupgrade
-    rev: v3.20.0
+    rev: v3.21.2
     hooks:
       - id: pyupgrade
         args:
           - --py313-plus
   - repo: https://github.com/PyCQA/autoflake
-    rev: v2.3.1
+    rev: v2.3.3
     hooks:
       - id: autoflake
   - repo: https://github.com/PyCQA/isort
-    rev: 6.0.1
+    rev: 8.0.1
     hooks:
       - id: isort
   - repo: https://github.com/asottile/yesqa
@@ -58,11 +58,11 @@ repos:
           - flake8-typing-imports
           - pep8-naming
   - repo: https://github.com/psf/black-pre-commit-mirror
-    rev: 25.1.0
+    rev: 26.1.0
     hooks:
       - id: black
   - repo: https://github.com/PyCQA/bandit
-    rev: 1.8.6
+    rev: 1.9.4
     hooks:
       - id: bandit
         args:
@@ -80,7 +80,7 @@ repos:
           - --min-python-version
           - 3.13.0
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.17.1
+    rev: v1.19.1
     hooks:
       - id: mypy
         args: []
@@ -89,7 +89,7 @@ repos:
           - pywikibot-extensions
           - types-requests
   - repo: https://github.com/lovesegfault/beautysh
-    rev: v6.2.1
+    rev: v6.4.2
     hooks:
       - id: beautysh
         additional_dependencies:

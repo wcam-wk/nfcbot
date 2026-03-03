@@ -11,10 +11,12 @@ from
   oldimage oi
   left join page p on oi.oi_name = p.page_title
   inner join categorylinks cl on p.page_id = cl.cl_from
+  left join linktarget lt on cl.cl_target_id = lt.lt_id
 where
   oi_deleted = 0
   and p.page_namespace = 6
-  and cl.cl_to = 'All_non-free_media'
+  and lt.lt_namespace = 14
+  and lt.lt_title = 'All_non-free_media'
   and not exists (
     select
       1

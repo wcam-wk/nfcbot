@@ -18,7 +18,6 @@ from nfcbot.bot import (
 from nfcbot.cache import build_cache, clear_cache
 from nfcbot.page import NonFreeFilePage, Page
 
-
 CLASS_MAP: dict[str, type[NfcBot]] = {
     "nfur-fixer": NfurFixerBot,
     "orphan-tagger": OrphanTaggerBot,

@@ -10,15 +10,19 @@ select distinct
   p1.page_namespace,
   p1.page_title
 from
-  categorylinks cl
+  linktarget lt1
+  left join categorylinks cl on lt1.lt_id = cl.cl_target_id
   left join page p1 on cl.cl_from = p1.page_id
-  left join imagelinks il on p1.page_title = il.il_to
+  left join linktarget lt2 on p1.page_namespace = lt2.lt_namespace and p1.page_title = lt2.lt_title
+  left join imagelinks il on lt2.lt_id = il.il_target_id
   left join page p2 on il.il_from = p2.page_id
   left join recentchanges rc on rc.rc_title = p2.page_title and rc.rc_namespace = p2.page_namespace
 where
-  cl.cl_to = '所有非自由媒體'
+  lt1.lt_namespace = 14
+  and lt1.lt_title = '所有非自由媒體'
   and cl.cl_type = 'file'
   and p1.page_namespace = 6
+  and lt2.lt_namespace = 6
   and rc.rc_bot = 0
   and rc.rc_source in ('mw.edit', 'mw.new')
   and $(date -ud '-5 hours' +'%Y%m%d%H%M%S') <= rc.rc_timestamp;
